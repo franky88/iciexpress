@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'bulletins.apps.BulletinsConfig',
     'classchedules.apps.ClasschedulesConfig',
+    'curriculums.apps.CurriculumsConfig',
     'crispy_forms',
 ]
 

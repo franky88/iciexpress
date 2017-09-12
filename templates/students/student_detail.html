@@ -13,19 +13,19 @@
 <hr>
 <div class="row">
 	{% if instance.image %}
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<div class="card">
 			<img class="card-image-top" src="{{instance.image.url}}" alt="{{instance.image.url}" style="width: 100%; height: auto;">
 		</div>
 	</div>
 	{% else %}
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<div class="card">
 			<img src="{% static 'img/icilogo.png' %}" alt="ici" style="width: 100%; height: auto;">
 		</div>
 	</div>
 	{% endif %}
-	<div class="col-sm-10">
+	<div class="col-sm-8">
 		<h4>{{instance.full_name|title}} | <small>LRN: {{instance.lrn}}</small></h4>
 		<hr>
 		<strong>Age: </strong>{{instance.getAge}} years old<br>
@@ -53,7 +53,7 @@
 		  </li>
 		</ul>
 		<div class="tab-content">
-		  <div class="tab-pane" id="schedules" role="tabpanel">
+		  <div class="tab-pane active" id="schedules" role="tabpanel">
 		    <hr>
 			<h3>{{instance.student.get_full_name|title}} <small>Class Schedule</small></h3>
 			<hr>

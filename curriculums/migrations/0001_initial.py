@@ -11,19 +11,16 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('blocks', '0001_initial'),
-        ('students', '0001_initial'),
+        ('courses', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ClassRoster',
+            name='Curriculum',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('block', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='blocks.Block')),
-                ('student', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='students.Student')),
+                ('cur_name', models.CharField(default='anim2017', max_length=120, unique=True)),
+                ('course', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='courses.Course')),
             ],
         ),
     ]
