@@ -13,5 +13,4 @@ class SubjectForm(forms.ModelForm):
 			"hours",
 			"fee",
 			"semester",
-			"course",
 		]

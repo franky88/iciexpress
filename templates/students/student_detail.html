@@ -34,6 +34,7 @@
 		<strong>Block: </strong>{{instance.block.block_name|title}}<br>
 		<strong>Address: </strong>{{instance.address|title}}<br>
 		<strong>Course: </strong>{{instance.course|upper}}<br>
+		<strong>Date Enrolled: </strong>{{instance.date_registered}}
 		<hr>
 		{% if perms.students.change_student %}
 			<a type="button" title="Edit" class="btn btn-primary btn-sm" href="{% url 'student:edit' instance.id %}"><i class="fa fa-edit"></i> Edit</a>
@@ -53,12 +54,16 @@
 		</ul>
 		<div class="tab-content">
 		  <div class="tab-pane" id="schedules" role="tabpanel">
+		    <hr>
 			<h3>{{instance.student.get_full_name|title}} <small>Class Schedule</small></h3>
 			<hr>
+			<p><strong>Block: </strong>{{instance.block.block_name|title}}</p>
+			<p><strong>Adviser: </strong>{{instance.block.instructor|title}}</p>
 			<table class="table table-condenced table-bordered">
 				<thead>
 					<tr>
 						<th>Instructors</th>
+						<th>Subjects</th>
 						<th>Day</th>
 						<th>Time Start</th>
 						<th>Time End</th>
@@ -66,13 +71,16 @@
 					</tr>
 				</thead>
 				<tbody>
+					{% for cs in instance.block.class_schedule.schedule_set.all %}
 					<tr>
-						<td>{{instance.block.instructor|title}}</td>
-						<td>{{instance.day.day|title}}</td>
-						<td>{{sched.start_time|time}}</td>
-						<td>{{sched.end_time|time}}</td>
-						<td>{{sched.room|title}}</td>
+						<td>{{cs.instructor.instructor.get_full_name|title}}</td>
+						<td>{{cs.subject.descriptive_title|title}}</td>
+						<td>{{cs.day|title}}</td>
+						<td>{{cs.start_time|time}}</td>
+						<td>{{cs.end_time|time}}</td>
+						<td>{{cs.room|title}}</td>
 					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		  </div>

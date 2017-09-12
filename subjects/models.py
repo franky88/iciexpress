@@ -12,7 +12,6 @@ class SubjectType(models.Model):
 class Subject(models.Model):
 	subject_type=models.ForeignKey(SubjectType, on_delete=models.CASCADE)
 	semester=models.ForeignKey(Semester, on_delete=models.CASCADE)
-	course=models.ForeignKey(Course, on_delete=models.CASCADE)
 	subject_code=models.CharField(max_length=20, unique=True)
 	descriptive_title=models.CharField(max_length=255)
 	subject_description=models.TextField(default="", blank=True)

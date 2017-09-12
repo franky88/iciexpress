@@ -13,7 +13,7 @@
     {% endif %}
 </h3>
 <hr>
-<table class="table table-hover table-bordered">
+<!-- <table class="table table-hover table-bordered">
     <thead>
         <tr>
             <th>Blocks</th>
@@ -36,6 +36,21 @@
         </tr>
         {% endfor %}
     </tbody>
-</table>
+</table> -->
+{% for list in blocklist %}
+<div class="row">
+    <div class="col-sm-12">
+        <h4><a href="{% url 'block:detail' list.id %}">{{list.block_name|title}} | <small>Adviser: {{list.instructor.instructor.get_full_name|title}}</small></a></h4>
+        <p><strong>Date created: </strong>{{list.timestamp}}</p>
+        {% if perms.blocks.change_block %}
+        <a href="{% url 'block:edit' list.id %}" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i></a>
+        {% endif %}
+        {% if perms.blocks.delete_block %}
+        <a href="" type="button" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+        {% endif %}
+    </div>
+</div>
+<hr>
+{% endfor %}
 
 {% endblock %}

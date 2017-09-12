@@ -5,7 +5,7 @@ from students.models import Student
 from classchedules.models import ClassSchedule
 # Create your models here.
 class Day(models.Model):
-	day=models.CharField(max_length=10, unique=True)
+	day=models.CharField(max_length=30, unique=True)
 	def __str__(self):
 		return self.day
 class Room(models.Model):

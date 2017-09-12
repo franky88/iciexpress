@@ -9,4 +9,5 @@ class BlockForm(forms.ModelForm):
 			"instructor",
 			"block_name",
 			"grade_level",
+			"class_schedule",
 		]
