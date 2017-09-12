@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'adviser:list' %}">Adviser List</a></li>
+  <li class="breadcrumb-item active">{{title|title}} <small></small></li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+<strong>Block: </strong> {{instance.block.block_name|title}}<br>
+<strong>Adviser: </strong>{{instance.instructor.user.get_full_name|title}}<br>
+<hr>
+<h4>Class Roster</h4>
+{% if instance %}
+<ol>
+	{% for studs in instance.schoolform_set.all %}
+	<li>{{studs.student.full_name|title}}</li>
+	{% endfor %}
+</ol>
+{% else %}
+	<a href=""><i class="fa fa-plus"></i></a>
+{% endif %}
+<hr>
+<strong>Downloads: </strong><a href="{% url 'adviser:pdf' instance.id %}">SF1 <small>Class register</small></a> | <a href="{% url 'adviser:pdf' instance.id %}">SF2 <small>Class attendance</small></a>
+{% endblock %}

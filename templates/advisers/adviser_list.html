@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Blocks</th>
+            <th>Advisers</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for list in adviserlist %}
+        <tr>
+            <td><a href="{% url 'adviser:detail' list.id %}">{{list.block.block_name|title}}</a></td>
+            <td>{{list.instructor.user.get_full_name|title}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

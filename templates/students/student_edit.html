@@ -1,0 +1,57 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'student:list' %}">Student List</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+
+		<form action="" class="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Student Profiles</h4>
+					<hr>
+					{{ form.lrn|as_crispy_field }}
+					{{ form.fname|as_crispy_field }}
+					{{ form.lname|as_crispy_field }}
+					{{ form.mname|as_crispy_field }}
+					{{ form.ename|as_crispy_field }}
+					{{ form.gender|as_crispy_field }}
+					{{ form.birth_date|as_crispy_field }}
+					{{ form.mother_tongue|as_crispy_field }}
+					{{ form.IP|as_crispy_field }}
+					{{ form.religion|as_crispy_field }}
+					{{ form.image|as_crispy_field }}
+					<h4>Address</h4>
+					<hr>
+					{{ form.address|as_crispy_field }}
+				</div>
+				<div class="col-sm-6">
+					<h4>Parent's Informations</h4>
+					<hr>
+					{{ form.father_name|as_crispy_field }}
+					{{ form.mother_name|as_crispy_field }}
+					<h4>Guardian's Information <small><i>If parent's is not available</i></small></h4>
+					{{ form.guardian_name|as_crispy_field }}
+					{{ form.relationship|as_crispy_field }}
+					<h4>Contact</h4>
+					<hr>
+					{{ form.contact|as_crispy_field }}
+					<h4>School Data</h4>
+					<hr>
+					{{ form.block|as_crispy_field }}
+					{{ form.course|as_crispy_field }}
+					<h4>Remarks</h4>
+					<hr>
+					{{ form.remarks|as_crispy_field }}
+				</div>
+			</div>
+			<hr>
+			<input type="submit" class="btn btn-primary btn-sm" value="Update Student">
+			<a href="{% url 'student:list' %}" class="btn btn-danger btn-sm" type="button">Cancel</a>
+		</form>
+
+{% endblock %}

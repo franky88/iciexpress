@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'schoolform:list' %}">School Form List</a></li>
+  <li class="breadcrumb-item active">{{title|title}} <small></small></li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+{{instance.form_name|title}}
+{% for ad in instance.adviser_set.all %}
+{{ad.instructor.user.get_full_name|title}}
+{% endfor %}
+{% endblock %}

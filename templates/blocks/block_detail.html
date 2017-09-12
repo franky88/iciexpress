@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'block:list' %}">Block List</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}} <small>Block: {{instance.block_name|title}}</small></h3>
+<hr>
+<h4>Adviser: {{instance.instructor.instructor.get_full_name|title}} | <small>Class Roster</small></h4>
+<hr>
+<ol>
+	{% for student in instance.student_set.all %}
+		<li>{{student.full_name|title}}</li>
+	{% endfor %}
+</ol>
+<hr>
+<a href="{% url 'block:sfdetail' instance.id %}">SF 1</a> |
+{% endblock %}

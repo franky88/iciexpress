@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'instructor:list' %}">Instructor List</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+		<h3>{{title|title}}
+		{% if perms.users.add_user %}
+		| <a href="{% url 'user:add' %}" class="btn btn-primary btn-sm">Add user</a>
+		{% endif %}
+		</h3>
+		<form action="" class="form" method="POST">{% csrf_token %} 
+			{{form|crispy}}
+			<hr>
+			<input type="submit" class="btn btn-primary btn-sm" value="Add">
+			<a href="{% url 'instructor:list' %}" class="btn btn-danger btn-sm" type="button">Cancel</a>
+		</form>
+
+{% endblock %}

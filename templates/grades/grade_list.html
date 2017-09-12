@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>{{title|title}}</h3>
+            </div>
+            <div class="col-sm-6">
+                <form class="form-inline input-group" method="GET" action="">
+                    <input class="form-control" name="q" type="text" placeholder="{{searchPlaceholder}}" value="{{ request.GET.q }}">
+                    <span class="input-group-btn">
+                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+                    </span>
+                </form>
+            </div>
+        </div>
+        <!-- <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on left
+</button> -->
+        <hr>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for list in gradelist %}
+                <tr>
+                    <td><a href="{% url 'grade:detail' list.id %}">{{list.student.get_full_name|upper}}</a></td>
+                {% empty %}
+                    <td colspan="8" style="text-align: center;"><h5>Subject not found!</h5></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <div class="pagination">
+            <span class="step-links">
+                {% if gradelist.has_previous %}
+                    <a type="button" class="btn btn-secondary btn-sm" href="?page={{gradelist.previous_page_number}}">Previous</a>
+                {% endif %}
+            </span>
+            <span class="current">
+                &nbsp Page {{gradelist.number}} of {{gradelist.paginator.num_pages}}. &nbsp
+            </span>
+            {% if gradelist.has_next %}
+                <a type="button" class="btn btn-secondary btn-sm" href="?page={{gradelist.next_page_number}}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

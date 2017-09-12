@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'student:list' %}">Students</a></li>
+  <li class="breadcrumb-item active">{{title|title}} <small>LRN: {{instance.lrn}}</small></li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+<div class="row">
+	{% if instance.image %}
+	<div class="col-sm-2">
+		<div class="card">
+			<img class="card-image-top" src="{{instance.image.url}}" alt="{{instance.image.url}" style="width: 100%; height: auto;">
+		</div>
+	</div>
+	{% else %}
+	<div class="col-sm-2">
+		<div class="card">
+			<img src="{% static 'img/icilogo.png' %}" alt="ici" style="width: 100%; height: auto;">
+		</div>
+	</div>
+	{% endif %}
+	<div class="col-sm-10">
+		<h4>{{instance.full_name|title}} | <small>LRN: {{instance.lrn}}</small></h4>
+		<hr>
+		<strong>Age: </strong>{{instance.getAge}} years old<br>
+		<strong>Birth date: </strong>{{instance.birth_date}}<br>
+		<strong>Gender: </strong>{{instance.gender.gender|title}}<br>
+		<strong>Block: </strong>{{instance.block.block_name|title}}<br>
+		<strong>Address: </strong>{{instance.address|title}}<br>
+		<strong>Course: </strong>{{instance.course|upper}}<br>
+		<hr>
+		{% if perms.students.change_student %}
+			<a type="button" title="Edit" class="btn btn-primary btn-sm" href="{% url 'student:edit' instance.id %}"><i class="fa fa-edit"></i> Edit</a>
+		{% endif %}
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-12">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link" data-toggle="tab" href="#schedules" role="tab" aria-controls="messages">Schedules</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" data-toggle="tab" href="#grades" role="tab" aria-controls="home">Grades</a>
+		  </li>
+		</ul>
+		<div class="tab-content">
+		  <div class="tab-pane" id="schedules" role="tabpanel">
+			<h3>{{instance.student.get_full_name|title}} <small>Class Schedule</small></h3>
+			<hr>
+			<table class="table table-condenced table-bordered">
+				<thead>
+					<tr>
+						<th>Instructors</th>
+						<th>Day</th>
+						<th>Time Start</th>
+						<th>Time End</th>
+						<th>Room</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{instance.block.instructor|title}}</td>
+						<td>{{instance.day.day|title}}</td>
+						<td>{{sched.start_time|time}}</td>
+						<td>{{sched.end_time|time}}</td>
+						<td>{{sched.room|title}}</td>
+					</tr>
+				</tbody>
+			</table>
+		  </div>
+		  <div class="tab-pane" id="grades" role="tabpanel">
+			  <h3>Students Grades</h3>
+			  <hr>
+			  <table class="table table-hover table-bordered">
+			  	<tr>
+			  		<th>Subjects</th>
+			  		<th>Instructor</th>
+			  		<th>Grades</th>
+			  	</tr>
+			  	{% for grade in instance.grade_set.all %}
+			  	<tr>
+			  		<td>{{grade.subject.descriptive_title|title}}</td>
+			  		<td>{{grade.instructor.user.get_full_name|title}}</td>
+			  		<td>{{grade.grade}}</td>
+			  	</tr>
+			  	{% endfor %}
+			  </table>
+		  </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

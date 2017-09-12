@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'subject:list' %}">Subjects</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>{{instance.descriptive_title|title}} <small>| {{instance.subject_code|upper}}</small></h4>
+			</div>
+			<div class="card-body">
+				<p>{{instance.subject_description|upper}}</p>
+			</div>
+		</div>	
+	</div>
+	
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>{{title|title}}
+                {% if perms.instructor.add_intructor %}
+                | <a href="{% url 'instructor:add' %}" class="btn btn-primary btn-sm">Add instructor</a>
+                {% endif %}
+                </h3>
+            </div>
+            <div class="col-sm-6">
+                <form class="form-inline input-group" method="GET" action="">
+                    <input class="form-control" name="q" type="text" placeholder="{{searchPlaceholder}}" value="{{ request.GET.q }}">
+                    <span class="input-group-btn">
+                        <input class="btn btn-success my-2 my-sm-0" type="submit" value="Search">
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+{% for list in instructorlist %}
+    <div class="row">
+        <div class="col-sm-2">
+            <a href="{% url 'instructor:detail' list.id %}"><img src="{% static 'img/icilogo.png' %}" alt="" style="width: 150px; height: 150px; border-radius: 50%;"></a>
+        </div>
+        <div class="col-sm-10 vertical-line">
+            <h4><a href="{% url 'instructor:detail' list.id %}">{{list.instructor.get_full_name|title}}</a></h4>
+            <hr>
+            <b>Contacts</b>
+            <br>
+            {{list.instructor.email}} | {{list.contact}}<br>
+            {{list.employment_status|title}}
+
+        </div>    
+    </div>
+    <hr>
+    {% empty %}
+    <div class="row">
+        <div class="col-sm-12">
+            <b style="color: red;">Instructor not found!</b>
+        </div>
+    </div>
+    {% endfor %}
+<hr>
+<p>Total number of instructor: <span class="badge badge-info">{{instructorcount}}</span></p>
+<hr>
+{% endblock %}

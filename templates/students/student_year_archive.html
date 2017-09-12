@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{ year }} Archive</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>Students for {{year}}</h3>
+{% for student in yearlist %}
+	<a href="{% url 'student:detail' student.id %}">{{student.student.get_full_name|title}}</a>
+{% endfor %}
+{% endblock %}

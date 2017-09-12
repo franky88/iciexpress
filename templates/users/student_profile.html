@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}} <small><i class="fa fa-cog"></i> This page is under construction. Service will be available soon.</small></h3>
+<hr>
+<div class="row">
+	<div class="col-sm-3">
+		<h4>Search Student</h4>
+		<hr>
+		<form class="form-inline input-group" method="GET" action="">
+		    <input class="form-control" name="q" type="text" placeholder="{{searchPlaceholder}}" value="{{ request.GET.q }}">
+		    <span class="input-group-btn">
+		        <input class="btn btn-success my-2 my-sm-0" type="submit" value="Search">
+		    </span>
+		</form>		
+	</div>
+	<div class="col-sm-9 vertical-line">
+		<h4><i class="fa fa-user"></i> Students</h4>
+		<hr>
+		{% for profile in studentprofile %}
+			<a href="">{{profile.full_name|title}}</a><br>
+		{% empty %}
+            <p>Student not found!</p>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

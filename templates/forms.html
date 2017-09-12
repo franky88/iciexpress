@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <html>
+     <head>
+         <title>{{instance.block.block_name|title}}</title>
+         <style type="text/css">
+             body {
+                 font-weight: 200;
+                 font-size: 8px;
+             }
+             .header {
+                 font-size: 15px;
+                 font-weight: 100;
+                 text-align: center;
+                 color: teal;
+             }
+             .title {
+                 font-size: 15px;
+                 font-weight: 100;
+                /* text-align: right;*/
+                padding: 10px;  
+             }
+             .title span {
+                 color: #007cae;
+             }
+             .details {
+                 text-align: left !important;
+             }
+             .hrItem {
+                 border: none;
+                 height: 1px;
+                 /* Set the hr color */
+                 color: #333; /* old IE */
+                 background-color: #fff; /* Modern Browsers */
+             }
+             table, tr, th, td {
+                border-collapse: collapse;
+                border: .25px solid #222;
+                padding: 5px;
+             }
+             @page {
+                size: A4 landscape;
+            }
+         </style>
+     </head>
+     <body>
+         <div class='wrapper'>
+             <div class='header'>
+                 <p class='title'>School Form 1<br><small>(School Register)</small></p>
+             </div>
+         <div>
+         <div class='details'>
+             Block: {{instance.block.block_name|title}}<br>
+             Instructor: {{instance.instructor.user.get_full_name|title}}  <br/>
+             <hr class='hrItem'/>
+             <table>
+                 <tr>
+                    <th>#</th>
+                     <th>LRN</th>
+                     <th>Full name</th>
+                     <th style="width: 40px;">Gender</th>
+                     <th>Birth date</th>
+                     <th style="width: 30px;">Age</th>
+                     <th>IP <small>(Ethnic tribe)</small></th>
+                     <th>Mother tongue</th>
+                     <th>Address</th>
+                     <th>Parents</th>
+                     <th>Guardians</th>
+                     <th>Contacts</th>
+                     <th>Remarks</th>
+                 </tr>
+                {% for studs in instance.schoolform_set.all %}
+                 <tr>
+                    <td>{{ studs.counts }}</td>
+                     <td>{{studs.student.lrn}}</td>
+                     <td>{{studs.student.full_name|title}}</td>
+                     <td>{{studs.student.gender.gender|title}}</td>
+                     <td>{{studs.student.birth_date}}</td>
+                     <td>{{studs.student.age}}</td>
+                     <td>{{studs.student.IP}}</td>
+                     <td>{{studs.student.mother_tongue}}</td>
+                     <td>{{studs.student.address|title}}</td>
+                     <td>{{studs.student.father_name|title}}, {{studs.student.mother_name|title}}</td>
+                     <td>{{studs.student.guardian_name|title}}</td>
+                     <td>{{studs.student.contact}}</td>
+                     <td>{{studs.student.remarks|title}}</td>
+                 </tr>
+                 {% endfor %}
+             </table>
+         </div>
+     </div>
+     </body>
+ </html>

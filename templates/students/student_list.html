@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>{{title|title}}
+                {% if perms.students.add_student %} 
+                | <a href="{% url 'student:add' %}" class="btn btn-primary btn-sm">Add Students</a>
+                {% endif %}
+                </h3>
+            </div>
+            <div class="col-sm-6">
+                <form class="form-inline input-group" method="GET" action="">
+                    <input class="form-control" name="q" type="text" placeholder="{{searchPlaceholder}}" value="{{ request.GET.q }}">
+                    <span class="input-group-btn">
+                        <input class="btn btn-success my-2 my-sm-0" type="submit" value="Search">
+                    </span>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>LRN</th>
+                    <th>Full name</th>
+                    <th>Gender</th>
+                    <th>Birth date</th>
+                    <th>Age</th>
+                    <th>Contacts</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for list in studentlist %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'student:detail' list.id %}">{{list.lrn}}</a></td>
+                    <td>{{list.full_name|title}}</td>
+                    <td>{{list.gender.gender|title}}</td>
+                    <td>{{list.birth_date}}</td>
+                    <td>{{list.getAge}}</td>
+                    <td>{{list.contact}}</td>
+                {% empty %}
+                    <td colspan="8" style="text-align: center;"><h5>Student not found!</h5></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <p>Total number of students: <span class="badge badge-info">{{studentcount}}</span> | Male: {{studentcountmale}} | Female: {{studentcountfemale}}</p>
+        <hr>
+        <div class="pagination">
+            <span class="step-links">
+                {% if studentlist.has_previous %}
+                    <a type="button" class="btn btn-secondary btn-sm" href="?page={{studentlist.previous_page_number}}">Previous</a>
+                {% endif %}
+            </span>
+            <span class="current">
+                &nbsp Page {{studentlist.number}} of {{studentlist.paginator.num_pages}}. &nbsp
+            </span>
+            {% if studentlist.has_next %}
+                <a type="button" class="btn btn-secondary btn-sm" href="?page={{studentlist.next_page_number}}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

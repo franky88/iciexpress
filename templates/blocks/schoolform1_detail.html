@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'block:list' %}">Block List</a></li>
+  <li class="breadcrumb-item active">{{title|title}} <small>Block: {{instance.block_name|title}}</small></li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+<div class="row">
+	<div class="col-sm-12" style="text-align: center;">
+		<strong style="text-align: center;">School Form 1(SF 1) School Register <br><small>(This replaces  Form 1, Master List & STS Form 2-Family Background and Profile)</small></strong>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-2">
+		<img src="{% static 'img/icilogo.png' %}" alt="icilogo" style="width: 100%; height: auto;">
+	</div>
+	<div class="col-sm-4">
+		<strong>School ID: <small><u>405748</u></small></strong><br>
+		<strong>School Name: <small><u>Iligan Computer Institute, Inc - CDO</u></small></strong>
+	</div>
+	<div class="col-sm-3">
+		<strong>Division: <small><u>Cagayan de Oro City</u></small></strong><br>
+		<strong>School Year: <small><u>2016 - 2017</u></small></strong>
+	</div>
+	<div class="col-sm-3">
+		<strong>District: <small><u>II</u></small></strong><br>
+		<div class="row">
+			<div class="col-sm-6">
+				<strong>Grade Level: <small><u>11</u></small></strong>
+			</div>
+			<div class="col-sm-6">
+				<strong>Section: <small><u>{{instance.block_name|title}}</u></small></strong>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+<table class="table table-hover table-bordered">
+	<thead>
+		<tr style="font-size: 10px;">
+			<th>#</th>
+			<th>LRN</th>
+			<th>Name <small>(Last name, First name, Middle name)</small></th>
+			<th>Sex</th>
+			<th>Birth Date</th>
+			<th>Age</th>
+			<th>Mother tongue</th>
+			<th>IP <small>(Ethnic Group)</small></th>
+			<th>Religion</th>
+			<th>Adress</th>
+			<th>Parents</th>
+			<th>Guardian</th>
+			<th>Contact</th>
+			<th>Remarks</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for names in instance.student_set.all %}
+		<tr style="font-size: 10px;">
+			<td>{{forloop.counter}}</td>
+			<td><a href="{% url 'student:detail' names.id %}">{{names.lrn}}</a></td>
+			<td>{{names.full_name|title}}</td>
+			<td>{{names.gender.gender|title}}</td>
+			<td>{{names.birth_date|title}}</td>
+			<td>{{names.getAge}}</td>
+			<td>{{names.mother_tongue|title}}</td>
+			<td>{{names.IP|title}}</td>
+			<td>{{names.religion|title}}</td>
+			<td>{{names.address|title}}</td>
+			<td>{{names.father_name|title}}, {{names.student.mother_name|title}}</td>
+			<td>{{names.guardian_name|title}}</td>
+			<td>{{names.contact}}</td>
+			<td>{{names.remarks|title}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<hr>
+{% endblock %}

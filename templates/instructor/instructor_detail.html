@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'instructor:list' %}">Instructor List</a></li>
+  <li class="breadcrumb-item active">{{title|title}} <small>Name: {{instance.instructor.get_full_name|title}}</small></li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}}</h3>
+<hr>
+{{instance.instructor.get_full_name|title}}
+{% endblock %}

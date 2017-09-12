@@ -1,0 +1,30 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'subject:list' %}">Subjects</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+
+		<form action="" class="form" method="POST">{% csrf_token %}
+			<div class="row">
+				<div class="col-sm-6">
+					{{form|crispy}}
+				</div>
+				<div class="col-sm-6">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit officiis ut numquam repudiandae ipsa minus dignissimos excepturi quasi, facere quidem voluptate mollitia fuga ratione voluptatibus? Cupiditate tempora facere ipsa rem!</p>
+					<p>Maxime suscipit recusandae, accusantium excepturi! Amet dicta quod ut labore aut natus, quasi, harum rem. Repellat deleniti ipsum reiciendis, id sunt vero exercitationem. Maiores alias ratione quidem animi, eaque deleniti.</p>
+					<p>Cumque atque ea, tempore reprehenderit, delectus, deserunt esse assumenda corporis molestiae excepturi blanditiis. Nam nisi sequi, ab a asperiores porro doloremque officia voluptatum ullam recusandae fugiat maiores ut animi! Aliquid.</p>
+					<p>Commodi modi, ab molestias ipsam illum nulla corporis aliquid soluta ea, impedit ut eos rem, voluptatibus aliquam, dignissimos sint velit repellat excepturi. Neque, esse. Accusamus quo enim repudiandae, eveniet fuga.</p>
+					<p>Voluptates, sapiente soluta maiores quaerat voluptas incidunt optio ab vel officiis tempore id ullam, eum voluptate recusandae commodi odio laboriosam ipsam. Quas reiciendis hic nam eaque perspiciatis doloremque porro vel?</p>
+				</div>
+			</div>
+			<hr>
+			<input type="submit" class="btn btn-primary btn-sm" value="Add Subjects">
+			<a href="{% url 'subject:list' %}" class="btn btn-danger btn-sm" type="button">Cancel</a>
+		</form>
+
+{% endblock %}

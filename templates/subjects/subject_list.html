@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+<!-- <form class="form-inline my-2 my-lg-0" method="GET" action="">
+    <input class="form-control mr-sm-2" name="q" type="text" placeholder="{{searchPlaceholder}}" value="{{ request.GET.q }}">
+    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+</form>
+<hr> -->
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>{{title|title}} {{ student_list }}
+                {% if perms.subjects.add_subject %} 
+                 | <small><a href="{% url 'subject:add' %}" class="btn btn-primary btn-sm">Add Subject</a></small>
+                {% endif %}
+                </h3>
+            </div>
+            <div class="col-sm-6">
+                <form class="form-inline input-group" method="GET" action="">
+                    <input class="form-control" name="q" type="text" placeholder="{{searchPlaceholder}}" value="{{ request.GET.q }}">
+                    <span class="input-group-btn">
+                        <input class="btn btn-success my-2 my-sm-0" type="submit" value="Search">
+                    </span>
+                </form>
+            </div>
+        </div>
+        <!-- <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on left
+</button> -->
+        <hr>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Subject Codes</th>
+                    <th>Descriptive Title</th>
+                    <th>Units</th>
+                    <th>Hours</th>
+                    <th>Subject Type</th>
+                    {% if perms.subjects.change_subject %}
+                    <th>Edit</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for list in subjectlist %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'subject:detail' list.id %}">{{list.subject_code|upper}}</a></td>
+                    <td>{{list.descriptive_title|title}}</td>
+                    <td>{{list.units|title}}</td>
+                    <td>{{list.hours}}</td>
+                    <td>{{list.subject_type.subject_type|title}}</td>
+                    {% if perms.subjects.change_subject %}
+                    <td style="text-align: center;"><a tabindex="0" role="button" type="button" title="Edit" class="btn btn-secondary btn-sm" href="{% url 'subject:edit' list.id %}"><i class="fa fa-edit"></i></a></td>
+                    {% endif %}
+                {% empty %}
+                    <td colspan="8" style="text-align: center;"><h5>Subject not found!</h5></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <div class="pagination">
+            <span class="step-links">
+                {% if subjectlist.has_previous %}
+                    <a type="button" class="btn btn-secondary btn-sm" href="?page={{subjectlist.previous_page_number}}">Previous</a>
+                {% endif %}
+            </span>
+            <span class="current">
+                &nbsp Page {{subjectlist.number}} of {{subjectlist.paginator.num_pages}}. &nbsp
+            </span>
+            {% if subjectlist.has_next %}
+                <a type="button" class="btn btn-secondary btn-sm" href="?page={{subjectlist.next_page_number}}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

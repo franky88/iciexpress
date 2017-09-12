@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'adviser:list' %}">Advisory List</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+
+		<form action="" class="form" method="POST">{% csrf_token %}
+			<p>
+				{{ form.instructor|as_crispy_field }}<br>
+				{{ form.block|as_crispy_field }}
+			</p>
+			<hr>
+			<input type="submit" class="btn btn-primary btn-sm" value="Add">
+			<a href="{% url 'adviser:list' %}" class="btn btn-danger btn-sm" type="button">Cancel</a>
+		</form>
+
+{% endblock %}

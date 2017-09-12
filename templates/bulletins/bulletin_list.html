@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h1><i class="fa fa-thumb-tack"></i> {{title|title}}</h1>
+<hr>
+<div class="row">
+	<div class="col-sm-12">
+		<h3><i class="fa fa-clipboard"></i> School Updates</h3>
+		<hr>
+		<div class="jumbotron jumbotron-fluid">
+		  <div class="container">
+		    <h1 class="display-3">ICIEXPRESS</h1>
+		    <hr>
+		    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+		  </div>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-12">
+	<h3><i class="fa fa-newspaper-o"></i> The PING News
+		{% if perms.bulletins.add_article %} 
+		| <a href="{% url 'bulletin:add' %}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+		{% endif %}
+	</h3>
+	<hr>
+	{% if perms.bulletins.add_bulletin %}
+	<h5>Reporters: 
+		{% for rep in reporterlist %}
+		<small><a href="">{{rep.get_full_name|title}}</a></small> |
+		{% endfor %}
+	</h5>
+	<hr>
+	{% endif %}
+	<div class="card-columns">
+		{% for list in articlelist %}
+		<div class="card">
+			{% if list.image %}
+			<img class="card-img-top" src="{{list.image.url}}" alt="Card image cap">
+			{% else %}
+			{{empty}}
+			{% endif %}
+			<div class="card-body">
+				<h4 class="card-title">{{list.headline|title}}</h4>
+				{% if list.content %}
+				<p class="card-text">{{list.content|truncatewords:30}}</p>
+				{% else %}
+					{{empty}}
+				{% endif %}
+				<p class="card-text"><small class="text-muted">{{list.timestamp|timesince}} ago</small></p>
+				<a href="" class="btn btn-info btn-sm">View</a>
+				{% if perms.bulletins.change_article %}
+					<a href="" class="btn btn-secondary btn-sm">Edit</a>
+				{% endif %}
+			</div>
+			<blockquote class="blockquote mb-0 card-body">
+				<footer class="blockquote-footer">
+					<small class="text-muted">
+					by: {{ request.user.get_full_name|title}} <cite title="Source Title">From ICI-CDO</cite>
+					</small>
+				</footer>
+			</blockquote>
+		</div>
+		<!-- <div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Card title</h4>
+				<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+				<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			</div>
+		</div> -->
+		{% empty %}
+			<h5>Nothing here! <a href="{% url 'bulletin:add' %}">add some?</a></h5>
+		{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
