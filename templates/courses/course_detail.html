@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'course:list' %}">Courses Offered</a></li>
+  <li class="breadcrumb-item active">{{title|title}}</li>
+</ol>
+<hr>
+{% endblock %}
+{% block content %}
+<h3>{{title|title}} - <small>Course: {{instance.course_name|upper}}</small></h3>
+<hr>
+<h4>{{instance.course_name}} Subjects</h4>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Subject Code</th>
+			<th>Descriptive Title</th>
+			<th>Units</th>
+			<th>Hours</th>
+			<th>Semester</th>
+			<th>Subject Type</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for cur in instance.curriculum_set.all %}
+		{% for subject in cur.subjects.all %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{subject.subject_code|upper}}</td>
+			<td>{{subject.descriptive_title|title}}</td>
+			<td>{{subject.units}}</td>
+			<td>{{subject.hours}}</td>
+			<td>{{subject.semester.semester|title}}</td>
+			<td>{{subject.subject_type.subject_type|title}}</td>
+		</tr>
+		{% endfor %}
+	{% endfor %}
+	</tbody>
+</table>
+<hr>
+{% endblock %}

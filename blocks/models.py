@@ -18,4 +18,4 @@ class Block(models.Model):
 	timestamp=models.DateField(auto_now=False, auto_now_add=True)
 	updated=models.DateField(auto_now=True, auto_now_add=False)
 	def __str__(self):
-		return self.block_name.upper()
+		return self.block_name.title()

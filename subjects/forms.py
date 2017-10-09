@@ -5,7 +5,6 @@ class SubjectForm(forms.ModelForm):
 	class Meta:
 		model=Subject
 		fields=[
-			"curriculum",
 			"subject_type",
 			"subject_code",
 			"descriptive_title",

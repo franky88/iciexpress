@@ -41,3 +41,11 @@ def courseEdit(request, pk):
 		"instance": instance,
 	}
 	return render(request, "courses/course_edit.html", context)
+
+def courseDetail(request, pk):
+	course_instance=get_object_or_404(Course, pk=pk)
+	context={
+		"title":"course details",
+		"instance": course_instance,
+	}
+	return render(request, "courses/course_detail.html", context)

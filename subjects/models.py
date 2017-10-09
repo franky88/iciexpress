@@ -1,5 +1,4 @@
 from django.db import models
-from curriculums.models import Curriculum
 # Create your models here.
 class Semester(models.Model):
 	semester=models.CharField(max_length=12)
@@ -12,7 +11,6 @@ class SubjectType(models.Model):
 class Subject(models.Model):
 	subject_type=models.ForeignKey(SubjectType, on_delete=models.CASCADE)
 	semester=models.ForeignKey(Semester, on_delete=models.CASCADE)
-	curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, default=1)
 	subject_code=models.CharField(max_length=20, unique=True)
 	descriptive_title=models.CharField(max_length=255)
 	subject_description=models.TextField(default="", blank=True)
